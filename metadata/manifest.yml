@@ -1,8 +1,8 @@
 ---
-Name: mysql
+Name: mysql-utf8mb4
 Cartridge-Short-Name: MYSQL
 Architecture: noarch
-Display-Name: MySQL 5.5
+Display-Name: MySQL 5.5 utf8mb4
 Description: MySQL is a multi-user, multi-threaded SQL database server.
 Version: '5.5'
 Versions:
