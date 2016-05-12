@@ -12,7 +12,16 @@
 # table_open_cache -> OPENSHIFT_MYSQL_TABLE_OPEN_CACHE
 # sort_buffer_size -> OPENSHIFT_MYSQL_SORT_BUFFER_SIZE
 
+[client]
+default-character-set = utf8mb4
+
 [mysqld]
+init_connect='SET collation_connection = utf8mb4_general_ci'
+init_connect='SET NAMES utf8mb4' 
+character-set-server = utf8mb4 
+collation-server = utf8mb4_general_ci 
+skip-character-set-client-handshake
+
 datadir=<%= ENV['OPENSHIFT_MYSQL_DIR'] %>data/
 socket=<%= ENV['OPENSHIFT_MYSQL_DB_SOCKET'] %>
 # Disable reverse DNS resolving of gear ip BZ#1051348
@@ -39,7 +48,7 @@ lower_case_table_names = <%= ENV['OPENSHIFT_MYSQL_LOWER_CASE_TABLE_NAMES'] ? ENV
 <%= ENV['OPENSHIFT_MYSQL_FT_MIN_WORD_LEN'] ? "ft_min_word_len = #{ENV['OPENSHIFT_MYSQL_FT_MIN_WORD_LEN']}" : '' %>
 <%= ENV['OPENSHIFT_MYSQL_FT_MAX_WORD_LEN'] ? "ft_max_word_len = #{ENV['OPENSHIFT_MYSQL_FT_MAX_WORD_LEN']}" : '' %>
 
-<%= ENV['OPENSHIFT_MYSQL_DEFAULT_STORAGE_ENGINE'] ? "default-storage-engine = #{ENV['OPENSHIFT_MYSQL_DEFAULT_STORAGE_ENGINE']}" : '' %>
+default-storage-engine = MyISAM
 myisam_sort_buffer_size = 2M
 
 <%= ENV['OPENSHIFT_MYSQL_TIMEZONE'] ? "default-time-zone = '#{ENV['OPENSHIFT_MYSQL_TIMEZONE']}'" : '' %>
@@ -57,6 +66,9 @@ innodb_lock_wait_timeout = 50
 
 [mysqld_safe]
 pid-file=<%= ENV['OPENSHIFT_MYSQL_DIR'] %>pid/mysql.pid
+character-set-server = utf8mb4 
+collation-server = utf8mb4_general_ci 
+skip-character-set-client-handshake
 
 [mysqldump]
 quick
@@ -64,6 +76,7 @@ max_allowed_packet = 16M
 
 [mysql]
 no-auto-rehash
+default-character-set = utf8mb4
 # Remove the next comment character if you are not familiar with SQL
 #safe-updates
 
